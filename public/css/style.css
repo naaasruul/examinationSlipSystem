@@ -1,0 +1,42 @@
+/* *{
+
+  font-family: "Tilt Neon", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "XROT" 0,
+    "YROT" 0;
+} */
+
+* {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  }
+
+.logoSrai{
+    width: 40px;
+    height: 40px;
+}
+
+.loginContainer{
+    margin: 0 25%   ;
+}
+
+.profilePicture{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.userBanner{
+  width: 100%;
+  padding: 1em 0 ;
+  /* margin: 0 2em; */
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
