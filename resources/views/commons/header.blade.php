@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="{{asset('css/style.css')}}">
   <script src="{{asset('js/bootstrap.min.js')}}"></script>
   <script src="{{asset('js/jquery.min.js')}}"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">

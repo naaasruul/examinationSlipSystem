@@ -22,8 +22,11 @@
         @if($selectedTeacher)
         <div class="row mx-4">
             <div class="col-3 d-flex flex-column align-items-center">
-                <img style="width: 100px; height:100px; border-radius:100%; object-fit:cover; " src="{{asset('images/defaultprofile.jpg')}}" alt="">
-                <p>Teacher</p>
+                <img style="width: 100px; height: 100px; border-radius: 100%; object-fit: cover;"
+                    src="{{ $selectedTeacher->profilePicture ? asset('assets/profile_pictures/' . $selectedTeacher->profilePicture) : 'https://via.placeholder.com/100' }}"
+                    alt="{{ $selectedTeacher->name }}'s Profile Picture">
+
+                <p>{{ $selectedTeacher->name }}</p>
             </div>
             <div class="col-9 row g-3">
                 <form action="{{route('update-teacher',['teacheric'=>$selectedTeacher->ic])}}" method="post">
@@ -76,8 +79,8 @@
                                 @foreach($subjects as $subject)
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="editTeacherSubjects[]"  type="checkbox" value="{{$subject->subjectCode}}" id="flexCheckDefault"
-                                        {{ $selectedTeacher->subjects->contains('subjectCode', $subject->subjectCode) ? 'checked' : '' }}>
+                                        <input class="form-check-input" name="editTeacherSubjects[]" type="checkbox" value="{{$subject->subjectCode}}" id="flexCheckDefault"
+                                            {{ $selectedTeacher->subjects->contains('subjectCode', $subject->subjectCode) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="flexCheckDefault">
                                             {{$subject->subjectName}}
                                         </label>
@@ -106,13 +109,16 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mb-3 d-flex justify-content-end ">
-                        <button class="btn btn-primary">Submit</button>
+                    <div class="col-12 mt-3   ">
+                        <button class="btn btn-primary w-100">Submit</button>
                     </div>
-
-
+                </form>
+                <form class="col-12" action="{{ route('delete-teacher', ['teacheric' => $selectedTeacher->ic]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn w-100 btn-danger">Delete</button>
+                </form>
             </div>
-            </form>
         </div>
         @else
         no data

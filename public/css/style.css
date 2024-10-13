@@ -40,3 +40,9 @@
   align-items: center;
   gap: 1em;
 }
+
+.profilePictureBtn{
+  position: absolute;
+  right: 3px;
+  bottom: 15px;
+}

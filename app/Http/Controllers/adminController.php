@@ -89,6 +89,37 @@ class adminController extends Controller
         }
     }
 
+    public function destroy($classCode)
+    {
+        $class = myclass::with('users')->where('classCode', $classCode)->first(); // Load students with class
+    
+        if ($class) {
+            // Delete associated students
+            $class->users()->delete();
+            // Delete the class
+            $class->delete();
+            
+            return redirect()->back()->with('success', 'Class and associated students deleted successfully!');
+        }
+    
+        return redirect()->back()->with('error', 'Class not found.');
+    }
+    
+
+    public function deleteTeacher($teacheric)
+{
+    // Find the teacher
+    $teacher = User::where('ic', $teacheric)->first();
+
+    if ($teacher) {
+        $teacher->delete();
+        return redirect()->back()->with('success', 'Teacher deleted successfully');
+    }
+
+}
+
+
+
     // EDIT CLASS
     public function editClass(Request $request, $classCode)
     {
@@ -109,6 +140,32 @@ class adminController extends Controller
         $students = User::where('classCode', $classid)->where('role', 1)->with('studentClass')->get();
         return view('studentOfClass_admin', ['students' => $students]);
     }
+// DELETE STUDENT
+public function deleteStudent($studentIc)
+{
+    // Get the currently authenticated user
+    $user = Auth::user();
+    if (!$user) {
+        return redirect('')->with('error', 'User not authenticated.');
+    }
+
+    // Find the student by IC
+    $student = User::where('ic', $studentIc)->first();
+
+    // Check if the student exists
+    if (!$student) {
+        return redirect('manageStudent')->with('error', 'Student not found.');
+    }
+
+    // Delete associated results
+    Result::where('ic', $studentIc)->delete();
+
+    // Delete the student
+    $student->delete();
+
+    // Redirect back to manage students page with a success message
+    return redirect('manageStudent')->with('success', 'Student deleted successfully.');
+}
 
     // ADD STUDENT
     public function addStudent(Request $request)

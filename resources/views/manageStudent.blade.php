@@ -3,12 +3,12 @@
     <div class="col-4 border-end ">
         <ul class="list-group list-group ">
             <li class="list-group-item bg-primary text-light">Student Name</li>
-            <li class="list-group-item text-light">
+            <!-- <li class="list-group-item text-light">
                 <div class="d-flex gap-1">
                     <input type="text" name="studentName" class="form-control" placeholder="Search student..">
                     <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
-            </li>
+            </li> -->
             @foreach($students as $student)
             <a href="{{route('edit-student',['studentIc'=>$student->ic])}}" class="list-group-item list-group-item-action" id="{{$student->ic}}" aria-current="true">
                 {{$student->name}}
@@ -22,12 +22,15 @@
         @if($selectedStudent)
         <div class="row mx-4">
             <div class="col-3 d-flex flex-column align-items-center">
-                <img style="width: 100px; height:100px; border-radius:100%; object-fit:cover; " src="{{$selectedStudent->profilePicture}}" alt="">
-                <p>Student</p>
+                <img style="width: 100px; height: 100px; border-radius: 100%; object-fit: cover;"
+                    src="{{ $selectedStudent->profilePicture ? asset('assets/profile_pictures/' . $selectedStudent->profilePicture) : 'https://via.placeholder.com/100' }}"
+                    alt="{{ $selectedStudent->name }}'s Profile Picture">
+
+                <p>{{ $selectedStudent->name }}</p>
             </div>
             <div class="col-9 row g-3">
                 <form action="{{route('update-student',['studentIc'=>$selectedStudent->ic])}}" method="post">
-                        @csrf
+                    @csrf
                     <!-- Name -->
                     <div class="col-12">
                         <label for="studentName">Name</label>
@@ -65,7 +68,7 @@
                     <div class="col-12">
                         <label for="studentName">IC Number</label>
                         <input type="text" disabled value="{{$selectedStudent->ic}}" class="form-control">
-                        <input type="hidden" name="editStudentIc"  value="{{$selectedStudent->ic}}" class="form-control">
+                        <input type="hidden" name="editStudentIc" value="{{$selectedStudent->ic}}" class="form-control">
                     </div>
 
                     <!-- Phone -->
@@ -82,13 +85,17 @@
                         </div>
                     </div>
 
-                    <div class="col-12 d-flex justify-content-end ">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="col-12 mt-3  ">
+                        <button type="submit" class="btn w-100 btn-primary">Submit</button>
                     </div>
+                </form>
+                <form class="col-12 " action="{{ route('deleteStudent', $student->ic) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn w-100 btn-danger">Delete</button>
+                </form>
+            </div>
 
-                    
-                </div>
-            </form>
         </div>
         @else
         <div class="row mx-4">

@@ -9,6 +9,30 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
+    <!-- Add this CSS for print media -->
+    <style>
+        @media print {
+            /* Ensure the body background is white */
+            body {
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            .container{
+                margin: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            /* Hide non-essential elements for printing (e.g., buttons) */
+            .btn, .d-flex ,footer{
+                display: none;
+            }
+        }
+    </style>
     
     <body class="bg-light">
         <div class="container mt-5">
@@ -141,7 +165,7 @@
 
             <div class="d-flex gap-2 flex-row">
                 <a href="{{route('studentMain')}}" class="btn btn-primary">Back</a>
-                <button class="btn btn-primary">Print</button>
+                <button onclick="window.print()" class="btn btn-primary">Print</button>
             </div>
         </div>
 

@@ -2,39 +2,39 @@
 
 <h1>My Classes</h1>
 <div class="row mt-5 g-4">
-
 <div class="col-3 row">
     <div class="col-12 border-end d-flex flex-column h-0 align-items-center">
         @foreach($myClasses as $className => $classes)
-        <button class="btn w-100 d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$className}}" aria-expanded="false" aria-controls="collapse{{$className}}">
-            <h5>{{ $className }}</h5> <i class="fa-solid fa-chevron-down"></i>
-        </button>
-
-        <div class="collapse w-100" id="collapse{{$className}}">
-            <!-- Show years for the class -->
-            @foreach($classes as $class)
-            <button class="btn w-100 d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseYear{{$class->year}}{{$class->classCode}}" aria-expanded="false" aria-controls="collapseYear{{$class->year}}{{$class->classCode}}">
-                <span>Year {{ $class->year }}</span> <i class="fa-solid fa-chevron-down"></i>
+            <button class="btn w-100 d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$className}}" aria-expanded="false" aria-controls="collapse{{$className}}">
+                <h5>{{ $className }}</h5> <i class="fa-solid fa-chevron-down"></i>
             </button>
 
-            <div class="collapse w-100" id="collapseYear{{$class->year}}{{$class->classCode}}">
-                <!-- list of student -->
-                <ul class="list-group">
-                    @foreach($students as $student)
-                    @if($student->classCode == $class->id && $class->year == $student->year && $student->role == 1)
-                    <a class="list-group-item list-group-item-action studentLink" id="{{$student->ic}}">
-                        <img src="https://t3.ftcdn.net/jpg/05/79/55/26/360_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" style="width: 30px; height:30px;" class="img-fluid" alt="...">
-                        {{$student->name}}
-                    </a>
-                    @endif
-                    @endforeach
-                </ul>
+            <div class="collapse w-100" id="collapse{{$className}}">
+                <!-- Show years for the class -->
+                @foreach($classes->sortBy('year') as $class) <!-- Sort classes by year -->
+                    <button class="btn w-100 d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseYear{{$class->year}}{{$class->classCode}}" aria-expanded="false" aria-controls="collapseYear{{$class->year}}{{$class->classCode}}">
+                        <span>Year {{ $class->year }}</span> <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div class="collapse w-100" id="collapseYear{{$class->year}}{{$class->classCode}}">
+                        <!-- list of student -->
+                        <ul class="list-group">
+                            @foreach($students as $student)
+                                @if($student->classCode == $class->id && $class->year == $student->year && $student->role == 1)
+                                    <a class="list-group-item list-group-item-action studentLink" id="{{$student->ic}}">
+                                        <img src="https://t3.ftcdn.net/jpg/05/79/55/26/360_F_579552668_sZD51Sjmi89GhGqyF27pZcrqyi7cEYBH.jpg" style="width: 30px; height:30px;" class="img-fluid" alt="...">
+                                        {{$student->name}}
+                                    </a>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
         @endforeach
     </div>
 </div>
+
 
     <div class="col-9 m-0">
         <div class="d-flex justify-content-between">

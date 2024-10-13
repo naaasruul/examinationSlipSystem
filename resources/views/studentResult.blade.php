@@ -9,11 +9,11 @@
     Exam 1
   </li>
   <li class="list-group-item">
-    <a class="btn btn-light"><i class="bi bi-chevron-right"></i></a>
+    <a href="{{route('result',['studentId'=>$user->ic,'examType'=>2])}}" class="btn btn-light"><i class="bi bi-chevron-right"></i></a>
     Exam 2
   </li>
   <li class="list-group-item">
-    <a class="btn btn-light"><i class="bi bi-chevron-right"></i></a>
+    <a href="{{route('result',['studentId'=>$user->ic,'examType'=>3])}}" class="btn btn-light"><i class="bi bi-chevron-right"></i></a>
     Exam 3
   </li>
 </ul>

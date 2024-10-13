@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\teacherController;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\Controller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,7 @@ use App\Http\Controllers\adminController;
 Route::get('/', [LoginController::class, 'showLogin']);
 Route::post('/login', [LoginController::class, 'login'])->name('login-user');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/editProfilePicture', [studentController::class, 'editProfile'])->name('editProfilePicture');
 
 // STUDENT CONTROLLER
 Route::get('/studentMain', [studentController::class, 'showStudentMain'])->name('studentMain');
@@ -52,11 +55,16 @@ Route::get('/showStudentOfClassAdmin/{classid}', [adminController::class, 'showS
 // CLASS
 Route::get('/manageClass', [adminController::class, 'showManageClass'])->name('manageClass');
 Route::post('/editClass/{classCode}', [adminController::class, 'editClass'])->name('edit-class');
+Route::delete('/delete-class/{classCode}', [adminController::class, 'destroy'])->name('delete-class');
+
 
 // render manage student
 Route::get('/manageStudent', [adminController::class, 'showManageStudent'])->name('manageStudent');
 // ADD student
 Route::post('/addStudent', [adminController::class, 'addStudent'])->name('add-student');
+// delete student
+Route::delete('/delete-student/{studentIc}', [adminController::class, 'deleteStudent'])->name('deleteStudent');
+
 // EDIT STUDENT
 Route::get('/edit/student/{studentIc}', [adminController::class, 'editStudent'])->name('edit-student');
 Route::post('/update/student/{studentIc}', [adminController::class, 'updateStudent'])->name('update-student');
@@ -71,3 +79,6 @@ Route::post('/update/teacher/{teacheric}', [adminController::class, 'updateTeach
 Route::get('/manageTeacher', [adminController::class, 'showManageTeacher'])->name('manageTeacher');
 // add teacher
 Route::post('/addTeacher', [adminController::class, 'addTeacher'])->name('add-teacher');
+// delete teacher
+Route::delete('/teacher/delete/{teacheric}', [adminController::class, 'deleteTeacher'])->name('delete-teacher');
+

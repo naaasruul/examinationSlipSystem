@@ -8,6 +8,8 @@ use App\Models\myclass;
 use App\Models\Result;
 use App\Models\User;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage; // Include Storage facade if needed
 
 class studentController extends Controller
 {
@@ -31,6 +33,54 @@ class studentController extends Controller
             return redirect('');
         }
     }
+
+    
+    public function editProfile(Request $request)
+    {
+        $user = Auth::user();  // Get the currently authenticated user
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not authenticated.');
+        }
+        
+        // Validate that the uploaded file is an image
+        $request->validate([
+            'profilePicture' => 'nullable|mimes:jpeg,jpg,png|max:2048', // Max size of 2MB
+        ]);
+    
+        // Fetch the current user instance
+        $currUser = User::where('ic', $user->ic)->first();
+    
+        // Check if the user has an existing profile picture
+        if ($currUser->profilePicture) {
+            $existingFilePath = public_path('assets/profile_pictures/' . $currUser->profilePicture);
+            
+            // Delete the existing profile picture if it exists
+            if (file_exists($existingFilePath)) {
+                unlink($existingFilePath); // Delete the file
+            }
+        }
+        
+        if ($request->hasFile('profilePicture')) {
+            $profilePicture = $request->file('profilePicture');
+            
+            // Generate a unique filename for the uploaded image
+            $filename = $user->ic . '_' . Str::random(5) . '_' . time() . '.' . $profilePicture->getClientOriginalExtension();
+            
+            // Move the uploaded file to the 'public/assets/profile_pictures' directory
+            $profilePicture->move(public_path('assets/profile_pictures'), $filename);
+            
+            // Save the filename in the user's profilePicture field
+            $currUser->profilePicture = $filename;
+        }
+        
+        // Save the updated user data
+        $currUser->save();
+        
+        // Redirect back to the profile page with a success message
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+    
+    
 
 
     public function showStudentResult(){
