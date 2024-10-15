@@ -27,6 +27,23 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+  <!-- Charts.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+
+  <style>
+    @media print{
+      /* Hide non-essential elements for printing (e.g., buttons) */
+    .btn,
+    .d-flex,
+    footer,
+    form,
+    nav,
+    .formResult {
+      display: none;
+    }
+    }
+  </style>
 </head>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -35,6 +52,8 @@
     <div class="collapse navbar-collapse d-flex justify-content-between " id="navbarNavAltMarkup">
       <div class="navbar-nav me-auto mb-2 mb-lg-0 ">
         <a class="nav-link active" href="{{route('adminMain')}}">Home</a>
+        <a class="nav-link" href="{{route('adminReport')}}">Report</a>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Manage
@@ -48,15 +67,8 @@
             <li><a class="dropdown-item" href="{{route('manageClass')}}">Class</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Examination
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Exam</a></li>
-            <li><a class="dropdown-item" href="#">Subject</a></li>
-          </ul>
-        </li>
+
+
       </div>
       <div class="d-flex gap-3 me-4">
         <a href="{{route('admin-profile')}}" class="nav-link">

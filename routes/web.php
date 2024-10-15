@@ -52,6 +52,10 @@ Route::get('/adminProfile', [adminController::class, 'showAdminProfile'])->name(
 Route::post('/adminProfile/edit/{adminId}', [adminController::class, 'editProfileAdmin'])->name('edit-admin-profile');
 Route::get('/showStudentOfClassAdmin/{classid}', [adminController::class, 'showStudentOfClass'])->name('showStudentOfClass-admin');
 
+
+Route::get('/get-classes', [adminController::class, 'getClasses'])->name('getClasses');
+Route::get('/adminReport', [adminController::class, 'monitor'])->name('adminReport');
+
 // CLASS
 Route::get('/manageClass', [adminController::class, 'showManageClass'])->name('manageClass');
 Route::post('/editClass/{classCode}', [adminController::class, 'editClass'])->name('edit-class');

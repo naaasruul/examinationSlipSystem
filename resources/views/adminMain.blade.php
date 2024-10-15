@@ -39,21 +39,11 @@
 
 
 @elseif($program == 'teacher')
-<div class="row">
-    <div class="col-11">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" class="form-control" placeholder="Search teacher.." aria-label="seacrh" aria-describedby="basic-addon1">
-        </div>
-    </div>
-
-    <div class="col-1">
-        <button class="btn btn-primary">Search</button>
-    </div>
-</div>
 
 
-<table class="table table-striped">
+
+<h1>List of teacher</h1>
+<table class="mt-3 table table-striped">
     <thead>
         <tr>
             <th scope="col">IC</th>

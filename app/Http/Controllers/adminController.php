@@ -8,6 +8,7 @@ use App\Models\myclass;
 use App\Models\Result;
 use App\Models\User;
 use App\Models\Subject;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Colors\Rgb\Channels\Red;
 use PDO;
@@ -104,7 +105,7 @@ class adminController extends Controller
     
         return redirect()->back()->with('error', 'Class not found.');
     }
-    
+
 
     public function deleteTeacher($teacheric)
 {
@@ -117,6 +118,73 @@ class adminController extends Controller
     }
 
 }
+
+    
+// SHOW REPORT
+public function showReport(){
+    return view('adminReport');
+}
+public function monitor(Request $request)
+{
+    // Fetch all years and subjects for the form
+    $years = myclass::distinct()->pluck('year'); // Fetch distinct years
+    $subjects = Subject::all(); // Assuming there's a Subject model
+
+    // Check if class and subject are provided
+    if ($request->has('class') && $request->has('subject')) {
+        // Fetch the selected class and subject
+        $selectedClass = myclass::find($request->class);
+        $selectedSubject = Subject::find($request->subject);
+
+        // Get students in the selected class
+        $students = User::where('classCode', $selectedClass->id)->get();
+
+        // Initialize an array to store success data
+        $successData = [];
+
+        // Iterate over each student
+        foreach ($students as $student) {
+            // Fetch the student's result for the selected subject
+            $result = Result::where('ic', $student->ic)
+                            ->where('subjectCode', $selectedSubject->subjectCode)
+                            ->first();
+
+            // Calculate the success rate (average of exam1, exam2, exam3)
+            if ($result) {
+                $averageScore = ($result->exam1 + $result->exam2 + $result->exam3) / 3;
+            } else {
+                $averageScore = 0; // Default to 0 if no result found
+            }
+
+            // Prepare data for the view
+            $successData[] = [
+                'name' => $student->name,
+                'percentage' => $averageScore, // Store the average score as success rate
+            ];
+        }
+
+        // Return the data to the 'adminReport' view
+        return view('adminReport', compact('successData', 'selectedClass', 'selectedSubject', 'years', 'subjects'));
+    }
+
+    // If no class or subject is selected, return the view with only years and subjects
+    return view('adminReport', compact('years', 'subjects'));
+}
+
+
+public function getClasses(Request $request)
+{
+    // Fetch classes based on the selected year
+    $classes = MyClass::where('year', $request->year)->get();
+
+    // Return the classes as JSON for the AJAX request
+    return response()->json($classes);
+}
+
+
+
+
+
 
 
 
