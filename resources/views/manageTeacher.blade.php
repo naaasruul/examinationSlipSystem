@@ -3,12 +3,6 @@
     <div class="col-4 border-end ">
         <ul class="list-group list-group ">
             <li class="list-group-item bg-primary text-light">Teacher Name</li>
-            <li class="list-group-item text-light">
-                <div class="d-flex gap-1">
-                    <input type="text" name="teacherName" class="form-control" placeholder="Search teacher..">
-                    <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-            </li>
             @foreach($teachers as $teacher)
             <a href="{{route('edit-teacher',['teacheric'=>$teacher->ic])}}" type="button" class="list-group-item list-group-item-action" id="{{$teacher->ic}}" aria-current="true">
                 {{$teacher->name}}
@@ -46,7 +40,8 @@
                             <option {{$selectedTeacher->year == 3 ? 'selected' : ''}} value="3">3</option>
                             <option {{$selectedTeacher->year == 4 ? 'selected' : ''}} value="4">4</option>
                             <option {{$selectedTeacher->year == 5 ? 'selected' : ''}} value="5">5</option>
-                            <option {{$selectedTeacher->year == 6 ? 'selected' : ''}} value="6">6</option>
+                            <opcomposer update --no-dev --optimize-autoloader
+                            tion {{$selectedTeacher->year == 6 ? 'selected' : ''}} value="6">6</option>
                         </select>
                     </div>
                     <!-- Class -->
@@ -160,7 +155,7 @@
                         <div class="col-9">
                             <label for="teacherName">Class</label>
                             <select name="newTeacherClass" id="inputState" class="form-select">
-                                <option value="tbt" selected>Taubat</option>
+                                <option value="tau" selected>Taubat</option>
                                 <option value="mhb">Mahabbah</option>
                                 <option value="zhd">Zuhud</option>
                                 <option value="ikh">Ikhlas</option>

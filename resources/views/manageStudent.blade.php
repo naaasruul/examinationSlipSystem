@@ -34,13 +34,13 @@
                     <!-- Name -->
                     <div class="col-12">
                         <label for="studentName">Name</label>
-                        <input type="text" name="editStudentName" value="{{$selectedStudent->name}}" class="form-control">
+                        <input type="text" name="editStudentName" value="{{$selectedStudent->name}}" class="form-control bg-light-subtle">
                     </div>
 
                     <!-- Year -->
                     <div class="col-3">
                         <label for="studentName">Year</label>
-                        <select id="inputState" name="editStudentYear" class="form-select">
+                        <select id="inputState" name="editStudentYear" class="form-select ">
                             <option value="1" {{ $selectedStudent->year == 1 ? 'selected' : '' }}>1</option>
                             <option value="2" {{ $selectedStudent->year == 2 ? 'selected' : '' }}>2</option>
                             <option value="3" {{ $selectedStudent->year == 3 ? 'selected' : '' }}>3</option>
@@ -175,17 +175,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add new teacher</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add new student</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body bg-light-subtle">
                 <div class="row g-3">
                     <form action="{{route('add-student')}}" method="post">
                         @csrf
                         <!-- Name -->
                         <div class="col-12">
                             <label for="studentName">Name</label>
-                            <input type="text" name="newStudentName" id="newStudentName" class="form-control">
+                            <input type="text" name="newStudentName" id="newStudentName" class="form-control ">
                         </div>
 
                         <!-- Year -->

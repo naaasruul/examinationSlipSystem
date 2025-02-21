@@ -1,5 +1,5 @@
 @include('commons.admin_header')
-<h1>Classes</h1>
+<h1>Manage classes</h1>
 <div class="mt-4" id="program-content">
     <div class="d-flex flex-column justify-content-between">
         @for ($year = 1; $year <= 6; $year++)
@@ -17,21 +17,21 @@
                         <div class="d-flex flex-column card mb-3">
                             <div class="card-body d-flex justify-content-between align-items-center">
                                 <span>{{ $class->className }}</span>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#classModal{{ $class->classCode }}">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#classModal{{ $class->id }}">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
                             </div>
                         </div>
 
                         <!-- Modal for each class -->
-                        <div class="modal fade" id="classModal{{ $class->classCode }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="classModal{{ $class->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Change Class Name</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('edit-class', ['classCode' => $class->classCode]) }}" method="POST">
+                                    <form action="{{ route('edit-class', ['classCode' => $class->id]) }}" method="POST">
                                         @csrf
                                         <div class="modal-body">
                                             <input type="text" class="form-control" name="className" value="{{ $class->className }}">

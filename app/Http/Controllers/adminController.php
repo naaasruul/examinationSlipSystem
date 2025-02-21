@@ -72,7 +72,21 @@ class adminController extends Controller
         $admin->address = $request->profileAddress;
         // Save the changes to the database
         $admin->save();
-        return redirect('adminProfile');
+
+        // Add a success message to the session
+        session()->flash('success', 'Profile updated successfully.');
+
+        if ( $admin->role == 2) {
+            return redirect('adminProfile');
+        }
+
+        if ($admin->role == 1){
+            return redirect("studentProfile");
+        }
+
+        if ($admin->role == 3){
+            return redirect("teacherProfile");
+        }
 
     }
     
@@ -100,10 +114,10 @@ class adminController extends Controller
             // Delete the class
             $class->delete();
             
-            return redirect()->back()->with('success', 'Class and associated students deleted successfully!');
+            return redirect()->route('manageClass')->with('success', 'Class and associated students deleted successfully!');
         }
     
-        return redirect()->back()->with('error', 'Class not found.');
+        return redirect()->route('manageClass')->with('error', 'Class not found.');
     }
 
 
@@ -114,7 +128,7 @@ class adminController extends Controller
 
     if ($teacher) {
         $teacher->delete();
-        return redirect()->back()->with('success', 'Teacher deleted successfully');
+        return redirect()->route('manageTeacher')->with('success', 'Teacher deleted successfully');
     }
 
 }
@@ -192,7 +206,7 @@ public function getClasses(Request $request)
     public function editClass(Request $request, $classCode)
     {
         $user = Auth::user();
-        $selectedClass = myclass::where('classCode', $classCode)->first();
+        $selectedClass = myclass::where('id', $classCode)->first();
         if (!$selectedClass) {
             return 'error';
         }
@@ -205,8 +219,9 @@ public function getClasses(Request $request)
 
     public function showStudentOfClass($classid)
     {
+        $selectedClass = myclass::find($classid); // Assuming 'ClassModel' is your class model
         $students = User::where('classCode', $classid)->where('role', 1)->with('studentClass')->get();
-        return view('studentOfClass_admin', ['students' => $students]);
+        return view('studentOfClass_admin', ['students' => $students, 'class'=>$selectedClass]);
     }
 // DELETE STUDENT
 public function deleteStudent($studentIc)
@@ -222,7 +237,7 @@ public function deleteStudent($studentIc)
 
     // Check if the student exists
     if (!$student) {
-        return redirect('manageStudent')->with('error', 'Student not found.');
+        return redirect()->route('manageStudent')->with('error', 'Student not found.');
     }
 
     // Delete associated results
@@ -232,7 +247,7 @@ public function deleteStudent($studentIc)
     $student->delete();
 
     // Redirect back to manage students page with a success message
-    return redirect('manageStudent')->with('success', 'Student deleted successfully.');
+    return redirect()->route('manageStudent')->with('success', 'Student deleted successfully.');
 }
 
     // ADD STUDENT

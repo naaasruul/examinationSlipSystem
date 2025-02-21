@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Models\myclass;
-use App\Models\Subject;
 use App\Models\User;
+use App\Models\Subject;
 use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,16 @@ class teacherController extends Controller
         $user = Auth::user();
         if($user){
             $studentClass = myclass::where('id', $user->classCode)->first();
-            return view('teacherProfile',['user'=>$user,'class' => $studentClass]);
+            // Directly retrieve subjects via raw query for debugging
+        $subjects = DB::table('subject_user')
+        ->join('subjects', 'subject_user.subjectCode', '=', 'subjects.subjectCode')
+        ->where('subject_user.ic', $user->id)
+        ->select('subjects.*')
+        ->get();
+
+    // dd($subjects); // Check if this shows any data
+
+            return view('teacherProfile',['user'=>$user,'class' => $studentClass,'subjects' => $subjects]);
         }else{
             return redirect('');
         }
@@ -36,8 +45,10 @@ class teacherController extends Controller
 
     public function showStudentOfClass($classid){
         $students = User::where('classCode',$classid)->where('role',1)->with('studentClass')->get();
+        // Retrieve the class information
+    $selectedClass = myclass::find($classid); // Assuming 'ClassModel' is your class model
         
-        return view('studentOfClass',['students'=>$students]);
+        return view('studentOfClass',['students'=>$students,'class'=>$selectedClass]);
     }
     
     public function showTeacherMarks()

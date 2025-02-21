@@ -38,11 +38,12 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <form class="row" action="{{route('edit-admin-profile',['adminId'=>$user->ic])}}" method="post">
+        @csrf
         <div class="col-12">
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" value="{{$user->name}}" class="form-control" id="">
+                <input type="text"  name="profileName" value="{{$user->name}}" class="form-control" id="">
             </div>
         </div>
         <div class="col-6">
@@ -60,21 +61,21 @@
         <div class="col-6">
             <div class="mb-3">
                 <label class="form-label">Phone Number</label>
-                <input type="text" value="{{$user->phone_number}}" class="form-control" id="">
+                <input type="text"  name="profilePhoneNumber" value="{{$user->phone_number}}" class="form-control" id="">
             </div>
         </div>
 
         <div class="col-6">
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Address</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" name="profileAddress" id="exampleFormControlTextarea1" rows="3">{{$user->address}}</textarea>
             </div>
         </div>
 
         <div class="col-12 d-flex justify-content-center mt-3">
-            <button class="btn btn-primary">Submit</button>
+            <button  type="submit" class="btn btn-primary">Submit</button>
         </div>
-    </div>
+    </form>
 
 </div>
 @include('commons.footer')

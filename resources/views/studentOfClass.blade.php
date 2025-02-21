@@ -2,6 +2,7 @@
 
 <div class="container">
     <div class="row">
+        <h1 class="mb-3">{{$class->year}} {{$class->className}}</h1>
         @if($students->isEmpty())
             <div class="col-12">
                 <h1>No students</h1>

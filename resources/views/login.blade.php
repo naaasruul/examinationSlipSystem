@@ -2,12 +2,15 @@
 <div class="loginContainer">
     <h1>Login</h1>
     @if($errors->any())
-    <ul>
-        @foreach($errors->all() as $error)
-            <li>{{$error}}</li>
-        @endforeach
-    </ul>
-    @endif
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <form action="{{route('login-user')}}" method="post">
         @csrf
         <div class="my-3">

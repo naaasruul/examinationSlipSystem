@@ -26,7 +26,6 @@
       <div class="navbar-nav ">
         <a class="nav-link active" aria-current="page" href="{{route('studentMain')}}">Home</a>
         <a class="nav-link" href="{{route('studentResult')}}">Result</a>
-        <a class="nav-link" href="#">Analysis</a>
       </div>
       <div class="d-flex gap-3 me-4">
         <a href="{{route('studentProfile')}}" class="nav-link">

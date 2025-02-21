@@ -75,7 +75,7 @@
 
 <div class="container reportResult mt-3">
     @if(isset($successData))
-    <h3>Success Rate for {{ $selectedClass->className }} - {{ $selectedSubject->subjectName }}</h3>
+    <h3>Success Rate for {{ $selectedClass->year }} {{ $selectedClass->className }} - {{ $selectedSubject->subjectName }}</h3>
     <table class="charts-css bar column data-outside">
         <caption>Success Rate of Students</caption>
 

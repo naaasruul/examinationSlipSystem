@@ -18,9 +18,11 @@
             <div class="card mb-3 animate__animated animate__backInLeft">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img style="width: 100%; height:100%; object-fit:cover;"
-                            src="{{ $teacher->profilePicture ? asset('assets/profile_pictures/' . $teacher->profilePicture) : 'https://via.placeholder.com/360' }}"
-                            class="img-fluid rounded-start" alt="{{ $teacher->name }}'s Profile Picture">
+                        <a href="{{ $teacher->profilePicture ? asset('assets/profile_pictures/' . $teacher->profilePicture) : 'https://via.placeholder.com/360' }}">
+                            <img style="width: 100%; height:100%; object-fit:cover;"
+                                src="{{ $teacher->profilePicture ? asset('assets/profile_pictures/' . $teacher->profilePicture) : 'https://via.placeholder.com/360' }}"
+                                class="img-fluid rounded-start" alt="{{ $teacher->name }}'s Profile Picture">
+                        </a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
